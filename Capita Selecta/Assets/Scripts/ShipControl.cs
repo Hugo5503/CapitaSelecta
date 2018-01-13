@@ -16,9 +16,9 @@ public class ShipControl : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        int x = Random.Range(-10,10);
+        int x = Random.Range(-10, 10);
         int z = Random.Range(-10, 10);
-        transform.position = new Vector3(x,transform.position.y,z);
+        transform.position = new Vector3(x, transform.position.y, z);
 
         targetIsland = islandManager.getRandomIsland(targetIsland);
         if (shipName == "")
@@ -39,9 +39,9 @@ public class ShipControl : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject == targetIsland)
+        if (other.gameObject == targetIsland)
         {
             Debug.Log(shipName + " Reached destination: " + targetIsland.GetComponent<Island>().islandName);
             //GameObject possibleNewLocation = islandManager.getRandomIsland();
@@ -53,10 +53,5 @@ public class ShipControl : MonoBehaviour
             targetIsland = islandManager.getRandomIsland(targetIsland);
             Debug.Log(shipName + " Setting course to: " + targetIsland.GetComponent<Island>().islandName);
         }
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        //Debug.Log("So " + shipName + " stayed in port for a while......");
     }
 }
