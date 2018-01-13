@@ -11,7 +11,10 @@ public class Island : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        islandName = "UnnamedIsland";
+        if (islandName == "")
+        {
+            islandName = "UnnamedIsland";
+        }
         wood = Random.Range(200,500);
         iron = Random.Range(50, 250);
         gold = Random.Range(20, 100);

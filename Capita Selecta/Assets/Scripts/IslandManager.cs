@@ -35,4 +35,14 @@ public class IslandManager : MonoBehaviour {
         }
         return c;
     }
+
+    public GameObject getRandomIsland(GameObject currentIsland)
+    {
+        int randomNr = Random.Range(0, islands.Count);
+        while (randomNr == islands.IndexOf(currentIsland))
+        {
+            randomNr = Random.Range(0, islands.Count);
+        }
+        return islands[randomNr];
+    }
 }
