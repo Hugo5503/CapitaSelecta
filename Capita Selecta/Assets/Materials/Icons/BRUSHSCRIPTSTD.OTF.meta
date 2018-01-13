@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 79b181bb3ae6aaa488a4934f47e2a759
+timeCreated: 1515861614
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Brush Script Std
+  fontNames:
+  - Brush Script Std
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
