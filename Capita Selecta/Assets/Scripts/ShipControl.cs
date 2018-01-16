@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShipControl : MonoBehaviour
 {
@@ -12,6 +13,14 @@ public class ShipControl : MonoBehaviour
     public string shipName;
     public IslandManager islandManager;
     public GameObject targetIsland;
+    public int wood;
+    public int iron;
+    public int gold;
+
+    public Text shipNameText;
+    public Text woodText;
+    public Text ironText;
+    public Text goldText;
 
     // Use this for initialization
     void Start()
@@ -28,15 +37,22 @@ public class ShipControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        shipNameText.text = shipName;
+        woodText.text = wood.ToString();
+        ironText.text = iron.ToString();
+        goldText.text = gold.ToString();
+
         if (forward && targetIsland != null)
         {
             this.transform.LookAt(targetIsland.transform);
             this.GetComponent<Rigidbody>().velocity = transform.forward * (speed * Time.deltaTime);
         }
+        /*
         if (rotate)
         {
             this.transform.Rotate(Vector3.up * Time.deltaTime * turningSpeed);
         }
+        */
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,14 +60,16 @@ public class ShipControl : MonoBehaviour
         if (other.gameObject == targetIsland)
         {
             Debug.Log(shipName + " Reached destination: " + targetIsland.GetComponent<Island>().islandName);
-            //GameObject possibleNewLocation = islandManager.getRandomIsland();
-            /*while (possibleNewLocation == targetIsland)
-            {
-                Debug.Log("It happened");
-                possibleNewLocation = islandManager.getRandomIsland();
-            }*/
-            targetIsland = islandManager.getRandomIsland(targetIsland);
-            Debug.Log(shipName + " Setting course to: " + targetIsland.GetComponent<Island>().islandName);
+            StartCoroutine(Wait(targetIsland));
+            forward = false;
+            this.GetComponent<Rigidbody>().velocity = new Vector3();
         }
+    }
+
+    IEnumerator Wait(GameObject oldIsland)
+    {
+        yield return new WaitForSeconds(3);
+        targetIsland = islandManager.getRandomIsland(oldIsland);
+        forward = true;
     }
 }

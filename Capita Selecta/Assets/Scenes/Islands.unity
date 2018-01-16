@@ -155,6 +155,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 19f01f377bb5410408ed88d46567e41c, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &403211577 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1315267469999964, guid: 19f01f377bb5410408ed88d46567e41c,
+    type: 2}
+  m_PrefabInternal: {fileID: 717563369}
 --- !u!1 &554369786
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,6 +340,11 @@ Prefab:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114804923643061416, guid: d93001c47e28a7e4da3f900c0eb59dbd,
+        type: 2}
+      propertyPath: targetToFollow
+      value: 
+      objectReference: {fileID: 1964649359}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d93001c47e28a7e4da3f900c0eb59dbd, type: 2}
   m_IsPrefabParent: 0
@@ -438,16 +448,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114804923643061416, guid: d93001c47e28a7e4da3f900c0eb59dbd,
+        type: 2}
+      propertyPath: targetToFollow
+      value: 
+      objectReference: {fileID: 1964649359}
     - target: {fileID: 114019242539317666, guid: d93001c47e28a7e4da3f900c0eb59dbd,
         type: 2}
       propertyPath: islandManager
       value: 
       objectReference: {fileID: 1622544916}
-    - target: {fileID: 65954108430005450, guid: d93001c47e28a7e4da3f900c0eb59dbd,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d93001c47e28a7e4da3f900c0eb59dbd, type: 2}
   m_IsPrefabParent: 0
@@ -495,25 +505,15 @@ Prefab:
       propertyPath: islandManager
       value: 
       objectReference: {fileID: 1622544916}
-    - target: {fileID: 114019242539317666, guid: d93001c47e28a7e4da3f900c0eb59dbd,
-        type: 2}
-      propertyPath: speed
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 114019242539317666, guid: d93001c47e28a7e4da3f900c0eb59dbd,
-        type: 2}
-      propertyPath: shipName
-      value: Voyager2
-      objectReference: {fileID: 0}
     - target: {fileID: 1584826109209884, guid: d93001c47e28a7e4da3f900c0eb59dbd, type: 2}
       propertyPath: m_Name
       value: Ship (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 65954108430005450, guid: d93001c47e28a7e4da3f900c0eb59dbd,
+    - target: {fileID: 114804923643061416, guid: d93001c47e28a7e4da3f900c0eb59dbd,
         type: 2}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: targetToFollow
+      value: 
+      objectReference: {fileID: 1964649359}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d93001c47e28a7e4da3f900c0eb59dbd, type: 2}
   m_IsPrefabParent: 0
@@ -564,6 +564,11 @@ Prefab:
     - target: {fileID: 1315267469999964, guid: 19f01f377bb5410408ed88d46567e41c, type: 2}
       propertyPath: m_Name
       value: Island (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114172673526657690, guid: 19f01f377bb5410408ed88d46567e41c,
+        type: 2}
+      propertyPath: islandName
+      value: Island2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 19f01f377bb5410408ed88d46567e41c, type: 2}
@@ -866,7 +871,7 @@ MonoBehaviour:
   islands:
   - {fileID: 1101831257}
   - {fileID: 725963565}
-  - {fileID: 0}
+  - {fileID: 403211577}
 --- !u!1 &1964649359
 GameObject:
   m_ObjectHideFlags: 0
@@ -950,7 +955,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1964649359}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 23.5, z: -29.3}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
