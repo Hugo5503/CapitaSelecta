@@ -24,9 +24,9 @@ public class TradeRoute : MonoBehaviour
 
     }
 
-    public void AddIsland()
+    public void AddIsland(GameObject island)
     {
-
+        route.Add(island.GetComponent<Island>());
     }
 
     public Island getNextIsland(Island currentIsland)
