@@ -8,8 +8,6 @@ public class ShipControl : MonoBehaviour
 
     public bool forward;
     public float speed;
-    public bool rotate;
-    public float turningSpeed;
     public string shipName;
     public IslandManager islandManager;
     public GameObject targetIsland;
@@ -25,11 +23,10 @@ public class ShipControl : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        int x = Random.Range(-10, 10);
-        int z = Random.Range(-10, 10);
+        int x = Random.Range(-20, 20);
+        int z = Random.Range(-20, 20);
         transform.position = new Vector3(x, transform.position.y, z);
-
-        targetIsland = islandManager.getRandomIsland(targetIsland);
+        StartCoroutine(Wait(null));
         if (shipName == "")
             shipName = "Unnamed ship";
     }
@@ -47,19 +44,12 @@ public class ShipControl : MonoBehaviour
             this.transform.LookAt(targetIsland.transform);
             this.GetComponent<Rigidbody>().velocity = transform.forward * (speed * Time.deltaTime);
         }
-        /*
-        if (rotate)
-        {
-            this.transform.Rotate(Vector3.up * Time.deltaTime * turningSpeed);
-        }
-        */
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == targetIsland)
         {
-            Debug.Log(shipName + " Reached destination: " + targetIsland.GetComponent<Island>().islandName);
             StartCoroutine(Wait(targetIsland));
             forward = false;
             this.GetComponent<Rigidbody>().velocity = new Vector3();
@@ -68,7 +58,8 @@ public class ShipControl : MonoBehaviour
 
     IEnumerator Wait(GameObject oldIsland)
     {
-        yield return new WaitForSeconds(3);
+        int randomInt = Random.Range(0,3);
+        yield return new WaitForSeconds(1 + randomInt);
         targetIsland = islandManager.getRandomIsland(oldIsland);
         forward = true;
     }

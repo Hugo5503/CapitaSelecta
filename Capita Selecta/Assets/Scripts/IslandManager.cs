@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IslandManager : MonoBehaviour {
+public class IslandManager : MonoBehaviour
+{
 
     public List<GameObject> islands;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-        
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     public GameObject getClosestIsland(Vector3 shipPos)
     {
@@ -37,11 +40,11 @@ public class IslandManager : MonoBehaviour {
     }
 
     public GameObject getRandomIsland(GameObject currentIsland)
-    {
-        int randomNr = Random.Range(0, islands.Count);
+    {  
+        int randomNr = Random.Range(0,islands.Count);
         while (randomNr == islands.IndexOf(currentIsland))
         {
-            randomNr = Random.Range(0, islands.Count);
+            randomNr = Random.Range(0,islands.Count);
         }
         return islands[randomNr];
     }
