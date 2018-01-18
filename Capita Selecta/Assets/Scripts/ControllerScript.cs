@@ -8,23 +8,91 @@ public class ControllerScript : MonoBehaviour
     private SteamVR_TrackedObject trackedObj;
     private Vector3 startZoomPosition;
 
+    private bool markerMode;
+    private bool leftHeldIn;
+    private bool timerRunning;
+
+    private GameObject selectedObject;
+
     public GameObject cameraRig;
+    public GameObject marker;
 
     // Use this for initialization
     void Start()
     {
+        timerRunning = false;
+        markerMode = false;
         trackedObj = this.GetComponent<SteamVR_TrackedObject>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, -Vector3.up, out hit))
+        if (controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))  // Is any DPad button pressed?
         {
-            //print("Found an object - distance: " + hit.distance + " ObjectName: " + hit.collider.gameObject.name);
+            var touchpadAxis = controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
+            if (touchpadAxis.x < .5f)
+            {
+                leftHeldIn = true;
+                Debug.Log("Left");
+
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, transform.forward, out hit))
+                {
+                    if (hit.collider.gameObject.tag != "Ignore")
+                    {
+                        Debug.Log("Found an oject: " + hit.collider.gameObject.name);
+                        if (hit.collider.gameObject.tag == "Island")
+                        {
+                            selectedObject = hit.collider.gameObject;
+                            if (selectedObject.tag == "Island")
+                            {
+                                selectedObject.GetComponent<Island>().UIcollection.SetActive(true);
+                            }
+                        }
+                        if (hit.collider.gameObject.tag == "Ship")
+                        {
+
+                        }
+                    }
+                }
+
+                if (!markerMode)
+                {
+                    markerMode = true;
+                }
+
+            }
+
         }
-        Debug.DrawRay(transform.position, transform.forward, Color.red);
+
+        if (markerMode)
+        {
+            marker.SetActive(true);
+        }
+        else
+        {
+            marker.SetActive(false);
+        }
+
+        //Look if left is hold if so stop markermode...
+        if (controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad))  // Is any DPad button pressed?
+        {
+            var touchpadAxis = controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
+            if (touchpadAxis.x < .5f)
+            {
+                if (!timerRunning)
+                {
+                    timerRunning = true;
+                    StartCoroutine(wait());
+                }
+            }
+        }
+
+        if (controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))
+        {
+            leftHeldIn = false;
+        }
 
         if (controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_Grip))
         {
@@ -52,5 +120,17 @@ public class ControllerScript : MonoBehaviour
             Debug.Log("reset");
             startZoomPosition = new Vector3();
         }
+    }
+
+    IEnumerator wait()
+    {
+        Debug.Log("timer started");
+        yield return new WaitForSeconds(2);
+        if (leftHeldIn)
+        {
+            markerMode = false;
+        }
+        Debug.Log("timer ended markermode = " + markerMode);
+        timerRunning = false;
     }
 }
