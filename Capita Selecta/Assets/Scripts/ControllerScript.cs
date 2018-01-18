@@ -19,9 +19,10 @@ public class ControllerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Physics.Raycast(transform.position, transform.forward))
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, -Vector3.up, out hit))
         {
-
+            //print("Found an object - distance: " + hit.distance + " ObjectName: " + hit.collider.gameObject.name);
         }
         Debug.DrawRay(transform.position, transform.forward, Color.red);
 
@@ -31,19 +32,24 @@ public class ControllerScript : MonoBehaviour
             {
                 startZoomPosition = this.transform.position;
             }
-            if(Vector3.Distance(this.transform.position, startZoomPosition) > 1)
-            {
-                cameraRig.transform.localScale = cameraRig.transform.localScale * +1;
-            }
-            if (Vector3.Distance(this.transform.position, startZoomPosition) < 1)
-            {
-                cameraRig.transform.localScale = cameraRig.transform.localScale * -1;
-            }
-            Debug.Log("OOohhhh scaling shit " + Vector3.Distance(this.transform.position, startZoomPosition));
         }
-        
+
+        if (controller.GetPress(Valve.VR.EVRButtonId.k_EButton_Grip))
+        {
+            float distance = transform.position.y - startZoomPosition.y;
+            if (distance > .15f && cameraRig.transform.localScale.y < 30)
+            {
+                cameraRig.transform.localScale = new Vector3(cameraRig.transform.localScale.x + 0.1f, cameraRig.transform.localScale.y + 0.1f, cameraRig.transform.localScale.z + 0.1f);
+            }
+            if (distance < -.15f && cameraRig.transform.localScale.y > 1)
+            {
+                cameraRig.transform.localScale = new Vector3(cameraRig.transform.localScale.x - 0.1f, cameraRig.transform.localScale.y - 0.1f, cameraRig.transform.localScale.z - 0.1f);
+            }
+        }
+
         if (controller.GetPressUp(Valve.VR.EVRButtonId.k_EButton_Grip))
         {
+            Debug.Log("reset");
             startZoomPosition = new Vector3();
         }
     }
