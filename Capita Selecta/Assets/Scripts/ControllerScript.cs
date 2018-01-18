@@ -44,6 +44,11 @@ public class ControllerScript : MonoBehaviour
                         Debug.Log("Found an oject: " + hit.collider.gameObject.name);
                         if (hit.collider.gameObject.tag == "Island")
                         {
+                            if(selectedObject != null)
+                            {
+                                DisableOldUI();
+                            }
+
                             selectedObject = hit.collider.gameObject;
                             if (selectedObject.tag == "Island")
                             {
@@ -52,7 +57,16 @@ public class ControllerScript : MonoBehaviour
                         }
                         if (hit.collider.gameObject.tag == "Ship")
                         {
+                            if (selectedObject != null)
+                            {
+                                DisableOldUI();
+                            }
 
+                            selectedObject = hit.collider.gameObject;
+                            if (selectedObject.tag == "Ship")
+                            {
+                                selectedObject.GetComponent<ShipControl>().UIcollection.SetActive(true);
+                            }
                         }
                     }
                 }
@@ -132,5 +146,17 @@ public class ControllerScript : MonoBehaviour
         }
         Debug.Log("timer ended markermode = " + markerMode);
         timerRunning = false;
+    }
+
+    private void DisableOldUI()
+    {
+        if (selectedObject.GetComponent<Island>() != null)
+        {
+            selectedObject.GetComponent<Island>().UIcollection.SetActive(false);
+        }
+        if (selectedObject.GetComponent<ShipControl>() != null)
+        {
+            selectedObject.GetComponent<ShipControl>().UIcollection.SetActive(false);
+        }
     }
 }

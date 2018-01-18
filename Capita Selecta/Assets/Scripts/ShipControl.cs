@@ -19,6 +19,7 @@ public class ShipControl : MonoBehaviour
     public Text woodText;
     public Text ironText;
     public Text goldText;
+    public GameObject UIcollection;
 
     // Use this for initialization
     void Start()
